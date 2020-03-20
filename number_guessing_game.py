@@ -1,12 +1,15 @@
-#!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
-
 import random
 import os
 
 # Maximum number to include in guessing game
+# Default is set to include numbers from 1 to 1,000
+#
+# To use numbers from 1 to 1,000,000 for example, change to: max_num = 1_000_000
+#
+
 max_num = 1_000
 
-# Scratch file location
+# Scratch file location for tracking winning streak
 scratch_file = "./tally.scratch"
 
 correct_responses = ["あたり", "正しい", "よくできました", "すごいね", "正解", "御名答"]
