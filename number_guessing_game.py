@@ -8,13 +8,13 @@ import platform
 #
 # To use numbers from 1 to 1,000,000 for example, change to: max_num = 1_000_000
 #
-OKGREEN = '\033[92m'
-FAIL = '\033[91m'
+OK_GREEN = '\033[92m'
+FAIL_RED = '\033[91m'
 ENDC = '\033[0m'
 
 max_num = 1_000
 current_platform = platform.system()
-print (current_platform);
+
 # Scratch file location for tracking winning streak
 scratch_file = "./tally.scratch"
 
@@ -57,11 +57,11 @@ while True:
     elif int(guess) == num:
         say(random.choice(correct_responses))
         tally += 1
-        print(f"{OKGREEN}correct number: {num} your guess: {guess}{ENDC}\n")
+        print(f"{OK_GREEN}correct number: {num} your guess: {guess}{ENDC}\n")
     else:
         say(random.choice(incorrect_responses))
         tally = 0
-        print(f"{FAIL}correct number: {num} your guess: {guess}{ENDC}\n")
+        print(f"{FAIL_RED}correct number: {num} your guess: {guess}{ENDC}\n")
 
     print(f"Streak: {tally}\n")
     time.sleep(1)
