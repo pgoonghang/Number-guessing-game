@@ -1,13 +1,19 @@
 import random
 import os
+import time
+import platform
 
 # Maximum number to include in guessing game
 # Default is set to include numbers from 1 to 1,000
 #
 # To use numbers from 1 to 1,000,000 for example, change to: max_num = 1_000_000
 #
+OK_GREEN = '\033[92m'
+FAIL_RED = '\033[91m'
+ENDC = '\033[0m'
 
 max_num = 1_000
+current_platform = platform.system()
 
 # Scratch file location for tracking winning streak
 scratch_file = "./tally.scratch"
@@ -18,9 +24,13 @@ incorrect_responses = ["おしい", "残念", "違う", "不正解", "間違い"
 guess, tally = None, 0
 
 def say(str):
-   str = "say -v kyoko " + str
-   os.system(str)
-   return
+    if (current_platform == 'Darwin'):
+        str = "say -v kyoko " + str
+    # TODO: And command for window/linux users https://wiki.freepascal.org/espeak
+    # else:
+    #     str = "espeak"
+    os.system(str)
+    return
 
 if os.path.isfile(scratch_file):
     with open(scratch_file, "r") as f:
@@ -47,7 +57,11 @@ while True:
     elif int(guess) == num:
         say(random.choice(correct_responses))
         tally += 1
+        print(f"{OK_GREEN}correct number: {num} your guess: {guess}{ENDC}\n")
     else:
         say(random.choice(incorrect_responses))
         tally = 0
-    print(f"correct number: {num} your guess: {guess} streak: {tally}\n")
+        print(f"{FAIL_RED}correct number: {num} your guess: {guess}{ENDC}\n")
+
+    print(f"Streak: {tally}\n")
+    time.sleep(1)
